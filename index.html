@@ -1,0 +1,47 @@
+<html>
+	<head>
+	</head>
+	<body>
+		<video id="video" width="600" controls>
+			<source src="http://assets4.ign.com/videos/zencoder/2016/02/08/960/02992c4862bc165bd158884da5f2be2c-1500000-1454977745-w.mp4" type="video/mp4">
+			Trình duyệt của bạn không hỗ trợ HTML5 video
+		</video>
+
+		<canvas id="frame" width="600" height="337.5"></canvas>
+
+		<script type="text/javascript">
+			var canvas = document.getElementById('frame');
+			var ctx = canvas.getContext('2d');
+			var video = document.getElementById('video');	
+
+			var back = document.createElement('canvas');
+			var backContext = back.getContext('2d');		
+
+			video.addEventListener('play', function() {
+				var cache = this;
+				(function loop() {
+					if (!cache.paused && !cache.ended) {
+						//ctx.drawImage(cache, 0, 0, 600, 337.5);
+						//setTimeout(loop, 1000 / 30);
+
+						backContext.drawImage(cache, 0, 0, 600, 377.5);
+
+						var imageData = backContext.getImageData(0, 0, 600, 377.5);
+						var data = imageData.data;
+
+						for (var i = 0; i < data.length; i += 4) {
+							data[i] = 255 - data[i];
+							data[i + 1] = 255 - data[i + 1];
+							data[i + 2] = 255 - data[i + 2];
+							data[i + 3] = 255; 
+						}
+						imageData.data = data;
+						ctx.putImageData(imageData, 0, 0);
+
+						setTimeout(loop, 1000 / 30);
+					}
+				}) ();
+			}, false);
+		</script>
+	</body>
+</html>
