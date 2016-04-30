@@ -1,5 +1,8 @@
 <html>
 	<head>
+	<script scr="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+	<script src="blur.js"></script>
+
 	</head>
 	<body>
 		<video id="video" width="600" controls>
@@ -8,10 +11,15 @@
 		</video>
 
 		<canvas id="frame" width="600" height="337.5"></canvas>
+		<canvas id="blur" width="600" height="337.5"></canvas>
 
 		<script type="text/javascript">
 			var canvas = document.getElementById('frame');
 			var ctx = canvas.getContext('2d');
+
+			var canvasBlur = document.getElementById('blur');
+			var blurCtx = canvasBlur.getContext('2d');
+
 			var video = document.getElementById('video');	
 
 			//var back = document.createElement('canvas');
@@ -38,10 +46,20 @@
 						imageData.data = data;
 						ctx.putImageData(imageData, 0, 0);
 
+						blurCtx.drawImage(cache, 0, 0, 600, 377.5);
+
 						setTimeout(loop, 1000 / 30);
 					}
 				}) ();
 			}, false);
+
+			$(document).ready( function() {
+				$('#blur').blurjs({
+    				source: 'body',
+   					radius: 30,
+   					overlay: 'rgba(0, 0, 0, .2)'
+  				});
+			});
 		</script>
 	</body>
 </html>
