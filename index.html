@@ -46,7 +46,7 @@
 						imageData.data = data;
 						ctx.putImageData(imageData, 0, 0);
 
-						blurCtx.drawImage(cache, 0, 0, 600, 377.5);
+						blurCtx.drawImage(cache, 0, 0, 600, 337.5);
 
 						setTimeout(loop, 1000 / 30);
 					}
@@ -54,7 +54,7 @@
 			}, false);
 
 			$(document).ready( function() {
-				$('#blur').blurjs({
+				$('blur').blurjs({
     				source: 'body',
    					radius: 30,
    					overlay: 'rgba(0, 0, 0, .2)'
