@@ -14,19 +14,19 @@
 			var ctx = canvas.getContext('2d');
 			var video = document.getElementById('video');	
 
-			var back = document.createElement('canvas');
-			var backContext = back.getContext('2d');		
+			//var back = document.createElement('canvas');
+			//var backContext = back.getContext('2d');		
 
 			video.addEventListener('play', function() {
 				var cache = this;
 				(function loop() {
 					if (!cache.paused && !cache.ended) {
-						//ctx.drawImage(cache, 0, 0, 600, 337.5);
+						ctx.drawImage(cache, 0, 0, 600, 337.5);
 						//setTimeout(loop, 1000 / 30);
 
-						backContext.drawImage(cache, 0, 0, 600, 377.5);
+						//backContext.drawImage(cache, 0, 0, 600, 377.5);
 
-						var imageData = backContext.getImageData(0, 0, 600, 377.5);
+						var imageData = ctx.getImageData(0, 0, 600, 377.5);
 						var data = imageData.data;
 
 						for (var i = 0; i < data.length; i += 4) {
